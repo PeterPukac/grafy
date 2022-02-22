@@ -6,10 +6,29 @@ import { FaDesktop } from 'react-icons/fa';
 import { BsLink45Deg } from 'react-icons/bs';
 import { BsPersonFill } from 'react-icons/bs';
 import { GiKnifeFork } from 'react-icons/gi';
-import { FcButtingIn } from 'react-icons/fc';
+import { FcButtingIn, FcEmptyFilter } from 'react-icons/fc';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
-const Topbar = () => {
+import { useState } from "react";
+
+const Topbar = (props) => {
+    const employeesArray = props.data;
+    const arrayHours = [];
+    let max =0;
+    //Naplnene pola hodin
+    employeesArray.map(emp => {
+        arrayHours.push(emp.hours);
+    })
+    //najdenie maxima v poli
+    for (let index = 0; index < arrayHours.length; index++) {
+        if(arrayHours[index] > max){
+            max = arrayHours[index];
+        }
+        
+    }
+    const empOfMonth = employeesArray.filter(emp => emp.hours === max);
+    console.log(empOfMonth.name);
+    console.log(max);
     return (
         <div className="TopBar">
             <Container fluid>
@@ -85,7 +104,7 @@ const Topbar = () => {
                                                 color: "white", fontSize: "10px"
                                             }}>Zamestnanec mesiaca </Card.Title>
                                             <Card.Text className="text-start" style={{ color: "white", fontWeight: "bold" }} >
-                                                Lucia Kormanová
+                                                {empOfMonth.name}
                                             </Card.Text>
                                         </Col>
                                         <Col md={2}>
@@ -131,6 +150,17 @@ const Topbar = () => {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>{employeesArray.map(emp => {
+                            <div className="bla" key={emp.id}>
+                                <h2>{emp.name}</h2>
+                                <p>{emp.hours}</p>
+                            </div>
+                        })}
+                        </div>
                     </Col>
                 </Row>
             </Container>
