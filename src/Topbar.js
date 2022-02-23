@@ -9,31 +9,65 @@ import { GiKnifeFork } from 'react-icons/gi';
 import { FcButtingIn, FcEmptyFilter } from 'react-icons/fc';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from "react";
-
+import { addDays, addHours, isSameMonth,parseISO, parseJSON, toDate } from 'date-fns';
 const Topbar = (props) => {
+    document.querySelectorAll(" p * div ");
     const employeesArray = props.data;
+    const orderArrays = props.orders;
+    const arrayOrdersDate = [];
+    orderArrays.map(ord => {
+        arrayOrdersDate.push(ord.date);
+    })
+
+    //vyfiltrovanie tych objednavok ktore su v danom mesiaci
+    const currentDate = new Date();
+    const pricesOrderArrays = orderArrays.filter(order =>
+            isSameMonth(parseISO(order.date),currentDate));
+    
+    function getSumOfPriceMonth(pPricesOrderArrays){
+        var sum = 0;
+        for (let index = 0; index < pPricesOrderArrays.length; index++) {
+            sum+= pPricesOrderArrays[index].price;      
+        }
+        return sum;
+    }
+    
+    function getCountOrdersMonth(pArrayOfDates){
+        var counter = 0;
+        var currentDate = new Date();
+        for (let index = 0; index < pArrayOfDates.length; index++) {
+            var time = parseISO(pArrayOfDates[index]);
+            if(isSameMonth(currentDate,time)){
+                counter++;
+            }          
+        }
+        return counter;
+    }
+    
+    var countOrdersOfMonth = getCountOrdersMonth(arrayOrdersDate);
+    var sumOrdersOfMonth = getSumOfPriceMonth(pricesOrderArrays);
+
+    //------------------------NAJDENIE ZAMESTNANCA MESIACA---------------
     const arrayHours = [];
-    let max =0;
+    let max = 0;
     //Naplnene pola hodin
     employeesArray.map(emp => {
         arrayHours.push(emp.hours);
     })
     //najdenie maxima v poli
     for (let index = 0; index < arrayHours.length; index++) {
-        if(arrayHours[index] > max){
+        if (arrayHours[index] > max) {
             max = arrayHours[index];
         }
-        
     }
     const empOfMonth = employeesArray.filter(emp => emp.hours === max);
-    console.log(empOfMonth.name);
-    console.log(max);
+    //-------------------------KONIEC ZAMESTNANCA-----------------
+
     return (
         <div className="TopBar">
             <Container fluid>
                 <Row>
-                    <Col sm={12} md={3} >
+                    <Col sm={12} md={6} lg={3} >
                         <Card className="card " style={{ backgroundColor: "rgb(255, 77, 77)" }}>
                             <Card.Body>
                                 <Container fluid>
@@ -44,8 +78,7 @@ const Topbar = (props) => {
                                                 color: "white", fontSize: "10px"
                                             }}>Počet objednávok za aktuálny mesiac</Card.Title>
                                             <Card.Text className="text-start" style={{ color: "white", fontWeight: "bold" }} >
-                                                26
-                                            </Card.Text>
+                                            {countOrdersOfMonth}</Card.Text>
                                         </Col>
                                         <Col md={2}>
                                             <FaDesktop size={50} style={{ color: "rgb(38, 38, 38)", opacity: "0.3" }} />
@@ -63,7 +96,7 @@ const Topbar = (props) => {
                         </Card>
                     </Col>
 
-                    <Col sm={12} md={3}>
+                    <Col sm={12} md={6} lg={3}>
                         <Card className="card " style={{ backgroundColor: "rgb(255, 179, 26)" }}>
                             <Card.Body>
                                 <Container fluid>
@@ -72,9 +105,9 @@ const Topbar = (props) => {
                                             <Card.Title className="text-start firstCard" style={{
                                                 textTransform: "uppercase",
                                                 color: "white", fontSize: "10px"
-                                            }}>Suma objednávok ua aktuálny mesiac</Card.Title>
+                                            }}>Suma objednávok za aktuálny mesiac</Card.Title>
                                             <Card.Text className="text-start" style={{ color: "white", fontWeight: "bold" }} >
-                                                4789,15 €
+                                                {sumOrdersOfMonth}€
                                             </Card.Text>
                                         </Col>
                                         <Col md={2}>
@@ -93,7 +126,7 @@ const Topbar = (props) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col sm={12} md={3}>
+                    <Col sm={12} md={6} lg={3}>
                         <Card className="card " style={{ backgroundColor: "rgb(179, 179, 179)" }}>
                             <Card.Body>
                                 <Container fluid>
@@ -103,8 +136,13 @@ const Topbar = (props) => {
                                                 textTransform: "uppercase",
                                                 color: "white", fontSize: "10px"
                                             }}>Zamestnanec mesiaca </Card.Title>
-                                            <Card.Text className="text-start" style={{ color: "white", fontWeight: "bold" }} >
-                                                {empOfMonth.name}
+                                            <Card.Text className="text-start"> 
+                                                {empOfMonth.map(emp => {
+                                                    return (
+                                                        <div className="textCard" key={emp.id}>
+                                                            {emp.name}
+                                                        </div>)
+                                                })}
                                             </Card.Text>
                                         </Col>
                                         <Col md={2}>
@@ -122,7 +160,7 @@ const Topbar = (props) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col sm={12} md={3}>
+                    <Col sm={12} md={6} lg={3}>
                         <Card className="card " style={{ backgroundColor: "rgb(89, 89, 89)" }}>
                             <Card.Body>
                                 <Container fluid>
@@ -152,19 +190,7 @@ const Topbar = (props) => {
                         </Card>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <div>{employeesArray.map(emp => {
-                            <div className="bla" key={emp.id}>
-                                <h2>{emp.name}</h2>
-                                <p>{emp.hours}</p>
-                            </div>
-                        })}
-                        </div>
-                    </Col>
-                </Row>
             </Container>
-
         </div>
     );
 }

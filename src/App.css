@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: white;/*282c34*/
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -45,7 +45,37 @@
   margin-right:12px;
 }
 
+.textCard{
+  text-align: left;
+  color: white;
+}
+
 .textik{
   margin-left:25px;
   text-align: left;
+  color:lightsteelblue;
 }
+
+.pomer{
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+.podGrafom{
+  text-align: left;
+}
+
+strong{
+  color: rgb(0, 179, 0);
+  font-size: 20px;
+  padding-right: 5px;
+  letter-spacing:1.5px;
+}
+
+
+.cervene{
+  color: rgb(204, 0, 0);
+  padding-right: 5px;
+  letter-spacing:1.5px;
+}
+

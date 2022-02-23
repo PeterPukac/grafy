@@ -1,13 +1,15 @@
-import  './App.css';
+import './App.css';
 import Main from './Main';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
+  document.querySelectorAll(" p * div ");
   return (
-    <div className="App">
-        <Main/>
-    </div>
+    <Router>
+      <div className="App">
+        <Main></Main>
+      </div>
+    </Router>
   );
 }
 export default App;
