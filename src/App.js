@@ -3,7 +3,6 @@ import Main from './Main';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
-  document.querySelectorAll(" p * div ");
   return (
     <Router>
       <div className="App">

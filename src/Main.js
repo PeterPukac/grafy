@@ -3,7 +3,6 @@ import Chart from './Chart';
 import { useState, useEffect } from 'react';
 
 const Main = () => {
-    document.querySelectorAll(" p * div ");
     const [dataEmployees, setDataDb] = useState(null);
     const [dataProjects, setDataProjects] = useState(null);
     const [dataOrders, setDataorders] = useState(null);

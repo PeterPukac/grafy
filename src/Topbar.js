@@ -9,44 +9,40 @@ import { GiKnifeFork } from 'react-icons/gi';
 import { FcButtingIn, FcEmptyFilter } from 'react-icons/fc';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { addDays, addHours, isSameMonth,parseISO, parseJSON, toDate } from 'date-fns';
+import { addDays, addHours, isSameMonth, parseISO, parseJSON, toDate } from 'date-fns';
 const Topbar = (props) => {
-    document.querySelectorAll(" p * div ");
     const employeesArray = props.data;
     const orderArrays = props.orders;
-    const arrayOrdersDate = [];
-    orderArrays.map(ord => {
-        arrayOrdersDate.push(ord.date);
-    })
+    const currentDate = new Date()
+    console.log(employeesArray);
+    const orderArrayInMonth = orderArrays.filter(order =>
+        isSameMonth(parseISO(order.date), currentDate));
 
     //vyfiltrovanie tych objednavok ktore su v danom mesiaci
-    const currentDate = new Date();
     const pricesOrderArrays = orderArrays.filter(order =>
-            isSameMonth(parseISO(order.date),currentDate));
-    
-    function getSumOfPriceMonth(pPricesOrderArrays){
+        isSameMonth(parseISO(order.date), currentDate));
+
+    function getSumOfPriceMonth(pPricesOrderArrays) {
         var sum = 0;
         for (let index = 0; index < pPricesOrderArrays.length; index++) {
-            sum+= pPricesOrderArrays[index].price;      
+            sum += pPricesOrderArrays[index].price;
         }
         return sum;
     }
-    
-    function getCountOrdersMonth(pArrayOfDates){
+
+    function getCountOrdersMonth(pArrayOfDates) {
         var counter = 0;
         var currentDate = new Date();
         for (let index = 0; index < pArrayOfDates.length; index++) {
             var time = parseISO(pArrayOfDates[index]);
-            if(isSameMonth(currentDate,time)){
+            if (isSameMonth(currentDate, time)) {
                 counter++;
-            }          
+            }
         }
         return counter;
     }
-    
-    var countOrdersOfMonth = getCountOrdersMonth(arrayOrdersDate);
-    var sumOrdersOfMonth = getSumOfPriceMonth(pricesOrderArrays);
 
+    var sumOrdersOfMonth = getSumOfPriceMonth(pricesOrderArrays);
     //------------------------NAJDENIE ZAMESTNANCA MESIACA---------------
     const arrayHours = [];
     let max = 0;
@@ -60,9 +56,13 @@ const Topbar = (props) => {
             max = arrayHours[index];
         }
     }
-    const empOfMonth = employeesArray.filter(emp => emp.hours === max);
+    var name = ' ';
+    var empOfMonth = [];
+    empOfMonth = employeesArray.filter(emp => emp.hours === max);
+    empOfMonth.map(emp => {
+        name=emp.name;
+    })
     //-------------------------KONIEC ZAMESTNANCA-----------------
-
     return (
         <div className="TopBar">
             <Container fluid>
@@ -78,7 +78,7 @@ const Topbar = (props) => {
                                                 color: "white", fontSize: "10px"
                                             }}>Počet objednávok za aktuálny mesiac</Card.Title>
                                             <Card.Text className="text-start" style={{ color: "white", fontWeight: "bold" }} >
-                                            {countOrdersOfMonth}</Card.Text>
+                                                {orderArrayInMonth.length}</Card.Text>
                                         </Col>
                                         <Col md={2}>
                                             <FaDesktop size={50} style={{ color: "rgb(38, 38, 38)", opacity: "0.3" }} />
@@ -136,13 +136,7 @@ const Topbar = (props) => {
                                                 textTransform: "uppercase",
                                                 color: "white", fontSize: "10px"
                                             }}>Zamestnanec mesiaca </Card.Title>
-                                            <Card.Text className="text-start"> 
-                                                {empOfMonth.map(emp => {
-                                                    return (
-                                                        <div className="textCard" key={emp.id}>
-                                                            {emp.name}
-                                                        </div>)
-                                                })}
+                                            <Card.Text className="text-start" style={{color:"white"}}>{name}
                                             </Card.Text>
                                         </Col>
                                         <Col md={2}>
