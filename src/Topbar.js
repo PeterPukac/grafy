@@ -6,10 +6,10 @@ import { FaDesktop } from 'react-icons/fa';
 import { BsLink45Deg } from 'react-icons/bs';
 import { BsPersonFill } from 'react-icons/bs';
 import { GiKnifeFork } from 'react-icons/gi';
-import { FcButtingIn, FcEmptyFilter } from 'react-icons/fc';
+import { FcButtingIn } from 'react-icons/fc';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { addDays, addHours, isSameMonth, parseISO, parseJSON, toDate } from 'date-fns';
+import { isSameMonth, parseISO, } from 'date-fns';
 const Topbar = (props) => {
     const employeesArray = props.data;
     const orderArrays = props.orders;
@@ -29,19 +29,6 @@ const Topbar = (props) => {
         }
         return sum;
     }
-
-    function getCountOrdersMonth(pArrayOfDates) {
-        var counter = 0;
-        var currentDate = new Date();
-        for (let index = 0; index < pArrayOfDates.length; index++) {
-            var time = parseISO(pArrayOfDates[index]);
-            if (isSameMonth(currentDate, time)) {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
     var sumOrdersOfMonth = getSumOfPriceMonth(pricesOrderArrays);
     //------------------------NAJDENIE ZAMESTNANCA MESIACA---------------
     const arrayHours = [];

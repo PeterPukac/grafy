@@ -1,10 +1,9 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Text, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList, PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList, PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
 import { isAfter, parseISO, isBefore } from 'date-fns';
 const Chart = (props) => {
-    document.querySelectorAll(" p * div ");
     const data = props.data;
     data.sort((a, b) => (a.price < b.price) ? 1 : -1);
 
