@@ -1,49 +1,19 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: white;/*282c34*/
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 
 .chart{
   background-color: #282c34;
-  margin-top: 20px;
-  margin-left: 12px;
-  margin-right:12px;
-  padding-bottom: 40px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right:1rem;
+  padding-bottom: 2rem;
+}
+
+.card{
+  background-color: "rgb(255, 77, 77)";
+}
+
+.icon{
+   color: rgb(38, 38, 38);
+   opacity: 0.3;
 }
 
 .textCard{
@@ -51,34 +21,46 @@
   color: white;
 }
 
+.card-text{
+  color: white;
+  font-weight: bold;
+}
+
+.card-title{
+    text-transform: uppercase;
+    color: white;
+    font-size: 0.7rem;
+}
+
+.details{
+    background-color: rgb(38, 38, 38);
+    text-align:right;
+    margin-top: 0.7rem;
+    opacity: 0.5;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-bottom: -1rem;
+    color:white;
+}
+
+a{
+  color: white;
+  font-size: 0.7rem;
+  padding-right: 0.3rem;
+}
+
 .textik{
-  margin-left:25px;
+  margin-left:1rem;
   text-align:left;
   color:lightsteelblue;
-  letter-spacing:1px;
-  font-size: 20px;
-  padding-bottom: 15px;
-}
-
-.labelX{
-  margin-left:25px;
-  text-align:center;
-  color:white;
-  letter-spacing:1px;
-  font-size: 20px;
-  padding-bottom: 15px;
-}
-
-@media screen and (max-width: 992px) {
-  .labelX {
-    text-align: left;
-    padding-left: 180px;
-  }
+  letter-spacing:0.05rem;
+  font-size: 1.2rem;
+  padding-bottom: 0.7rem;
 }
 
 #pomer{
   color: white;
-  font-size: 30px;
+  font-size: 1.7rem;
   font-weight: bold;
 }
 .podGrafom{
@@ -88,46 +70,41 @@
 
 strong{
   color: white;
-  font-size: 20px;
-  padding-right: 5px;
-  letter-spacing:1.5px;
+  font-size: 1.3rem;
+  padding-right: 0.4rem;
+  letter-spacing:0.05rem;
 }
 
-
-
-ul{
-  list-style: none;;
-}
-
-li{
-  color:lightsteelblue;
-  font-size: 18px;
-  letter-spacing:1px;
+.h{
+  color: white;
+  padding-top: 1rem;
+  text-align: left;
+  font-size: 1rem;
 }
 
 #green:before{
   content:'●';
   color:rgb(0, 179, 0);
-  font-size: 25px;
-}
-
-.barchart{
-  background-color: white;
+  font-size: 1.6rem;
 }
 
 #green{
     margin-bottom: -10px;
-    font-size: 19px;
+    font-size: 1.2rem;
 }
 #red{
-  font-size: 19px;
+  font-size: 1.2rem;
 }
 
 #red:before{
   text-align: left;
   content:'●';
   color:rgb(204, 0, 0);
-  font-size: 25px;
+  font-size: 1.6rem;
 }
 
-
+.podNadpisGrafu{
+   font-size: 0.7rem;
+   color: lightsteelblue;
+   text-align: left;
+  }

@@ -1,35 +1,33 @@
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { Label, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList, PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
+import { Label, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, LabelList, PieChart, Pie, ResponsiveContainer } from 'recharts';
 import { isAfter, parseISO, isBefore } from 'date-fns';
 import React from 'react';
+
+
 const Chart = (props) => {
     const data = props.data;
     data.sort((a, b) => (a.price < b.price) ? 1 : -1);
-
     const arrayProjectsEndDate = [];
     data.map(proj => { arrayProjectsEndDate.push(proj.endDate) });
-    console.log(arrayProjectsEndDate);
+    const COLORS = ['rgb(0, 179, 0)', 'rgb(204, 0, 0)'];
+    const RADIAN = Math.PI / 180;
 
     function getAfterDeadline(pArrayProjectEndDate) {
-        var currentDate = new Date();
-        var counterAfterDeadLine = 0;
-        for (let index = 0; index < pArrayProjectEndDate.length; index++) {
-            let timeToCompare = parseISO(pArrayProjectEndDate[index]);
+        let currentDate = new Date();
+        let counterAfterDeadLine = 0;
+        for(let date of pArrayProjectEndDate ){
+            let timeToCompare = parseISO(date);
             if (isAfter(currentDate, timeToCompare)) {
                 counterAfterDeadLine++;
             }
-
         }
         return counterAfterDeadLine;
     }
 
     function getBeforeDeadline(pArrayProjectEndDate) {
-        var currentDate = new Date();
-        var counterBeforeDeadLine = 0;
-        for (let index = 0; index < pArrayProjectEndDate.length; index++) {
-            let timeToCompare = parseISO(pArrayProjectEndDate[index]);
+        let currentDate = new Date();
+        let counterBeforeDeadLine = 0;
+        for(let date of pArrayProjectEndDate ){
+            let timeToCompare = parseISO(date);
             if (isBefore(currentDate, timeToCompare)) {
                 counterBeforeDeadLine++;
             }
@@ -37,39 +35,32 @@ const Chart = (props) => {
         return counterBeforeDeadLine;
     }
 
-    var projectsAfterDeadline = getAfterDeadline(arrayProjectsEndDate);
-    console.log(projectsAfterDeadline);
-    var projectsBeforeDeadline = getBeforeDeadline(arrayProjectsEndDate);
-    console.log(projectsBeforeDeadline);
-
-
-    const dataDva = [
-        { name: 'V termíne', value: projectsBeforeDeadline },
-        { name: 'Meškajúce', value: projectsAfterDeadline },
-    ];
-
-    const COLORS = ['rgb(0, 179, 0)', 'rgb(204, 0, 0)'];
-
-    const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, index }) => {
         const radius = 20 + innerRadius + (outerRadius - innerRadius);
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
         return (
-            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+            <text
+                x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
                 {dataDva[index].name}
             </text>
         );
     };
 
+    let projectsAfterDeadline = getAfterDeadline(arrayProjectsEndDate);
+    let projectsBeforeDeadline = getBeforeDeadline(arrayProjectsEndDate);
+    const dataDva = [
+        { name: 'V termíne', value: projectsBeforeDeadline },
+        { name: 'Meškajúce', value: projectsAfterDeadline },
+    ];
+
     return (
         <div className="chart">
-            <Container fluid width="80%" aspect={3}>
-                <h1 style={{ color: "white", fontSize: "20px", paddingTop: "20px", textAlign: "left" }}>Náklady na projekt</h1>
-                <div style={{ color: "white", fontSize: "12px", color: "lightsteelblue", textAlign: "left" }}>Rýchly náhľad nákladov na jednotlivé projekty podľa čísla</div>
-                <Row>
-                    <Col sm={12} md={7} lg={9}>
+            <div className="container-fluid" width="80%" aspect={3}>
+                <div className="h">Náklady na projekt</div>
+                <div className="podNadpisGrafu">Rýchly náhľad nákladov na jednotlivé projekty podľa čísla</div>
+                <div className="row">
+                    <div className = "col-sm-12 col-md-7 col-lg-9">
                         <ResponsiveContainer>
                             <BarChart
                                 width={600}
@@ -94,15 +85,15 @@ const Chart = (props) => {
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>
-                    </Col>
-                    <Col sm={12} md={5} lg={3}>
+                    </div>
+                    <div className="col-sm-12 col-md-5 col-lg-3">
                         <div className="textik">
                             <div id="pomer">
                                 {projectsBeforeDeadline}  / {projectsAfterDeadline}
                             </div>
                             Pomer projektov
                         </div>
-                        <PieChart width={800} height={400}>
+                        <PieChart width={800} height={400} fill="red">
                             <Pie
                                 data={dataDva}
                                 cx={141}
@@ -119,15 +110,13 @@ const Chart = (props) => {
                                 ))}
                             </Pie>
                         </PieChart>
-
                         <div className="podGrafom">
                             <div id="green"><strong> {projectsBeforeDeadline}</strong>V termíne</div>
                             <div id="red"><strong> {projectsAfterDeadline}</strong> Meškajúce</div>
                         </div>
-                    </Col>
-
-                </Row>
-            </Container>
+                    </div>
+                </div>
+            </div>
         </div >
 
     )
