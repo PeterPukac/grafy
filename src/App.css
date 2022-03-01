@@ -43,6 +43,7 @@
   margin-top: 20px;
   margin-left: 12px;
   margin-right:12px;
+  padding-bottom: 40px;
 }
 
 .textCard{
@@ -52,30 +53,81 @@
 
 .textik{
   margin-left:25px;
-  text-align: left;
+  text-align:left;
   color:lightsteelblue;
+  letter-spacing:1px;
+  font-size: 20px;
+  padding-bottom: 15px;
 }
 
-.pomer{
+.labelX{
+  margin-left:25px;
+  text-align:center;
+  color:white;
+  letter-spacing:1px;
+  font-size: 20px;
+  padding-bottom: 15px;
+}
+
+@media screen and (max-width: 992px) {
+  .labelX {
+    text-align: left;
+    padding-left: 180px;
+  }
+}
+
+#pomer{
   color: white;
   font-size: 30px;
   font-weight: bold;
 }
 .podGrafom{
   text-align: left;
+  color:lightsteelblue;
 }
 
 strong{
-  color: rgb(0, 179, 0);
+  color: white;
   font-size: 20px;
   padding-right: 5px;
   letter-spacing:1.5px;
 }
 
 
-.cervene{
-  color: rgb(204, 0, 0);
-  padding-right: 5px;
-  letter-spacing:1.5px;
+
+ul{
+  list-style: none;;
 }
+
+li{
+  color:lightsteelblue;
+  font-size: 18px;
+  letter-spacing:1px;
+}
+
+#green:before{
+  content:'●';
+  color:rgb(0, 179, 0);
+  font-size: 25px;
+}
+
+.barchart{
+  background-color: white;
+}
+
+#green{
+    margin-bottom: -10px;
+    font-size: 19px;
+}
+#red{
+  font-size: 19px;
+}
+
+#red:before{
+  text-align: left;
+  content:'●';
+  color:rgb(204, 0, 0);
+  font-size: 25px;
+}
+
 
