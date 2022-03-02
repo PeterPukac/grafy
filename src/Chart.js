@@ -84,8 +84,8 @@ const Chart = (props) => {
                         </ResponsiveContainer>
                     </div>
                     <div className="col-sm-12 col-md-5 col-lg-3">
-                        <div className="textik">
-                            <div id="pomer">
+                        <div className="piechartHeading">
+                            <div className="ratio">
                                 {projectsBeforeDeadline}  / {projectsAfterDeadline}
                             </div>
                             Pomer projektov

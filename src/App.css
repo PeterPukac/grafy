@@ -49,7 +49,7 @@ a{
   padding-right: 0.3rem;
 }
 
-.textik{
+.piechartHeading{
   margin-left:1rem;
   text-align:left;
   color:lightsteelblue;
@@ -58,7 +58,7 @@ a{
   padding-bottom: 0.7rem;
 }
 
-#pomer{
+.ratio{
   color: white;
   font-size: 1.7rem;
   font-weight: bold;
