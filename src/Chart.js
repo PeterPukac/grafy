@@ -5,16 +5,14 @@ import React from 'react';
 
 const Chart = (props) => {
     const data = props.data;
-    data.sort((a, b) => (a.price < b.price) ? 1 : -1);
-    const arrayProjectsEndDate = [];
-    data.map(proj => { arrayProjectsEndDate.push(proj.endDate) });
-    const COLORS = ['rgb(0, 179, 0)', 'rgb(204, 0, 0)'];
     const RADIAN = Math.PI / 180;
+    const arrayProjectsEndDate = [];
+    const COLORS = ['rgb(0, 179, 0)', 'rgb(204, 0, 0)'];
 
-    function getAfterDeadline(pArrayProjectEndDate) {
+    const getAfterDeadline = (pArrayProjectEndDate) => {
         let currentDate = new Date();
         let counterAfterDeadLine = 0;
-        for(let date of pArrayProjectEndDate ){
+        for (let date of pArrayProjectEndDate) {
             let timeToCompare = parseISO(date);
             if (isAfter(currentDate, timeToCompare)) {
                 counterAfterDeadLine++;
@@ -23,10 +21,10 @@ const Chart = (props) => {
         return counterAfterDeadLine;
     }
 
-    function getBeforeDeadline(pArrayProjectEndDate) {
+    const getBeforeDeadline = (pArrayProjectEndDate) => {
         let currentDate = new Date();
         let counterBeforeDeadLine = 0;
-        for(let date of pArrayProjectEndDate ){
+        for (let date of pArrayProjectEndDate) {
             let timeToCompare = parseISO(date);
             if (isBefore(currentDate, timeToCompare)) {
                 counterBeforeDeadLine++;
@@ -42,17 +40,16 @@ const Chart = (props) => {
         return (
             <text
                 x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-                {dataDva[index].name}
+                {dataPie[index].name}
             </text>
         );
     };
 
-    let projectsAfterDeadline = getAfterDeadline(arrayProjectsEndDate);
-    let projectsBeforeDeadline = getBeforeDeadline(arrayProjectsEndDate);
-    const dataDva = [
-        { name: 'V termíne', value: projectsBeforeDeadline },
-        { name: 'Meškajúce', value: projectsAfterDeadline },
-    ];
+    data.sort((a, b) => (a.price < b.price) ? 1 : -1);
+    data.map(proj => { arrayProjectsEndDate.push(proj.endDate) });
+    const projectsAfterDeadline = getAfterDeadline(arrayProjectsEndDate);
+    const projectsBeforeDeadline = getBeforeDeadline(arrayProjectsEndDate);
+    const dataPie = [{ name: 'V termíne', value: projectsBeforeDeadline }, { name: 'Meškajúce', value: projectsAfterDeadline },];
 
     return (
         <div className="chart">
@@ -60,7 +57,7 @@ const Chart = (props) => {
                 <div className="h">Náklady na projekt</div>
                 <div className="podNadpisGrafu">Rýchly náhľad nákladov na jednotlivé projekty podľa čísla</div>
                 <div className="row">
-                    <div className = "col-sm-12 col-md-7 col-lg-9">
+                    <div className="col-sm-12 col-md-7 col-lg-9">
                         <ResponsiveContainer>
                             <BarChart
                                 width={600}
@@ -75,7 +72,7 @@ const Chart = (props) => {
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="id">
                                     <div>Cislo projektu</div>
-                                    <Label value="Číslo projektu" offset={0} position="insideBottom"  fill="white"  />
+                                    <Label value="Číslo projektu" offset={0} position="insideBottom" fill="white" />
                                 </XAxis>
                                 <YAxis />
                                 <Tooltip />
@@ -95,7 +92,7 @@ const Chart = (props) => {
                         </div>
                         <PieChart width={800} height={400} fill="red">
                             <Pie
-                                data={dataDva}
+                                data={dataPie}
                                 cx={141}
                                 cy={200}
                                 innerRadius={50}
@@ -105,14 +102,14 @@ const Chart = (props) => {
                                 dataKey="value"
                                 isAnimationActive={false}
                                 label={renderCustomizedLabel}>
-                                {dataDva.map((entry, index) => (
+                                {dataPie.map((entry, index) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
                             </Pie>
                         </PieChart>
                         <div className="podGrafom">
-                            <div id="green"><strong> {projectsBeforeDeadline}</strong>V termíne</div>
-                            <div id="red"><strong> {projectsAfterDeadline}</strong> Meškajúce</div>
+                            <div className="greenCircle"><strong> {projectsBeforeDeadline}</strong>V termíne</div>
+                            <div className="redCircle"><strong> {projectsAfterDeadline}</strong> Meškajúce</div>
                         </div>
                     </div>
                 </div>

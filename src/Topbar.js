@@ -9,17 +9,13 @@ import { isSameMonth, parseISO, } from 'date-fns';
 
 
 const Topbar = (props) => {
-    const employeesArray = props.data;
-    const orderArrays = props.orders;
-    const currentDate = new Date();
-    const arrayHours = [];
     const iconSize = 50;
-    const orderArrayInMonth = orderArrays.filter(order => isSameMonth(parseISO(order.date), currentDate));
-    employeesArray.map(emp => { arrayHours.push(emp.hours); })
-    const pricesOrderArrays = orderArrays.filter(order => isSameMonth(parseISO(order.date), currentDate));
+    const arrayHours = [];
+    const currentDate = new Date();
+    const orderArrays = props.orders
+    const employeesArray = props.data;
 
-
-    function getSumOfPriceMonth(pPricesOrderArrays) {
+    const getSumOfPriceMonth = (pPricesOrderArrays) => {
         let sum = 0;
         for (let price of pPricesOrderArrays) {
             sum += price.price;
@@ -27,7 +23,7 @@ const Topbar = (props) => {
         return sum;
     }
 
-    function getEmployeeOfTheMonth(pArrayHours, pEmployeesArray) {
+    const  getEmployeeOfTheMonth = (pArrayHours, pEmployeesArray) => {
         let max = 0;
         for (let hours of pArrayHours) {
             if (hours > max) {
@@ -44,9 +40,11 @@ const Topbar = (props) => {
         return name;
     }
 
-    let countOrdersOfMonth = orderArrayInMonth.length;
-    let sumOrdersOfMonth = getSumOfPriceMonth(pricesOrderArrays);
-    let employeeOfTheMonth = getEmployeeOfTheMonth(arrayHours, employeesArray);
+    employeesArray.map(emp => { arrayHours.push(emp.hours); });
+    const pricesOrderArrays = orderArrays.filter(order => isSameMonth(parseISO(order.date), currentDate));
+    const countOrdersOfMonth = pricesOrderArrays.length;
+    const sumOrdersOfMonth = getSumOfPriceMonth(pricesOrderArrays);
+    const employeeOfTheMonth = getEmployeeOfTheMonth(arrayHours, employeesArray);
     const cards = [
         {  header: "Počet objednávok za aktuálny mesiac", color:"rgb(255, 77, 77)" , icon:<FaDesktop size={iconSize} />, value: countOrdersOfMonth},
         {  header: "Suma z objednávok za akutálny mesiac", color:"rgb(255, 179, 26)" , icon: <BsLink45Deg size={iconSize} />, value: sumOrdersOfMonth},

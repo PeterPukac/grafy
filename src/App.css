@@ -82,21 +82,21 @@ strong{
   font-size: 1rem;
 }
 
-#green:before{
+.greenCircle:before{
   content:'●';
   color:rgb(0, 179, 0);
   font-size: 1.6rem;
 }
 
-#green{
+.greenCircle{
     margin-bottom: -10px;
     font-size: 1.2rem;
 }
-#red{
+.redCircle{
   font-size: 1.2rem;
 }
 
-#red:before{
+.redCircle:before{
   text-align: left;
   content:'●';
   color:rgb(204, 0, 0);
