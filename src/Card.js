@@ -2,8 +2,8 @@ import React from 'react';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 const Card = (props) => {
     const object = props.object;
+    
     return (
-        <div className="card">
             <div className="card" style={{ backgroundColor: object.color }}>
                 <div className="card-body">
                     <div className="container-fluid">
@@ -26,7 +26,6 @@ const Card = (props) => {
                     </div>
                 </div>
             </div>
-        </div >
 
     )
 }
