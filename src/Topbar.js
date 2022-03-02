@@ -51,7 +51,7 @@ const Topbar = (props) => {
         {  header: "Počet objednávok za aktuálny mesiac", color:"rgb(255, 77, 77)" , icon:<FaDesktop size={iconSize} />, value: countOrdersOfMonth},
         {  header: "Suma z objednávok za akutálny mesiac", color:"rgb(255, 179, 26)" , icon: <BsLink45Deg size={iconSize} />, value: sumOrdersOfMonth},
         {  header: "Zamestnanec mesiaca", color:"rgb(179, 179, 179)" , icon: <BsPersonFill size={iconSize} />, value: employeeOfTheMonth},
-        {  header: "Obed", color:"rgb(89, 89, 89)" , icon: <GiKnifeFork size={iconSize} />, value: "Obed"}
+        {  header: "Obed", color:"rgb(89, 89, 89)" , icon: <GiKnifeFork size={iconSize} />, value: <FcButtingIn size={25}/> }
     ];
 
     return (
