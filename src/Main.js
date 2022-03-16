@@ -1,3 +1,4 @@
+
 import Topbar from './Topbar';
 import Chart from './Chart';
 import { useState, useEffect } from 'react';
@@ -22,7 +23,7 @@ const Main = () => {
     }, []);
     return (
         <div className="main">
-            {dataEmployees,dataOrders  && <Topbar data={dataEmployees} orders = {dataOrders} />}
+            {dataEmployees && dataOrders  &&  <Topbar data={dataEmployees} orders = {dataOrders} />}
             {dataProjects && <Chart data={dataProjects} />}
         </div>
     )
